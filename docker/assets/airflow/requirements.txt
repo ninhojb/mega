@@ -1,7 +1,0 @@
-apache-airflow[password]
-flask_bcrypt
-fdb
-pandas
-mailchimp3
-boto3
-psycopg2

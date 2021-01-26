@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJETO="Mega"
-
+DOCKER_AIRFLOW="mega"
 HR="***********************************************************************************"
 PRE="-----------------"
 
@@ -19,7 +19,7 @@ echo ''
 echo "${PRE} BUILD docker images"
 
 echo "${PRE} ... Airflow"
-sudo docker build -f Dockerfile-airflow -t ${DOCKER_AIRFLOW} .
+sudo docker build -f Dockerfile-airflow -t --remove-orphans ${DOCKER_AIRFLOW} .
 
 
 echo "${PRE} UP docker compose"
