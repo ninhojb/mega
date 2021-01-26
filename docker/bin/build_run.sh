@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PROJETO="Publitas"
+PROJETO="Mega"
 
 HR="***********************************************************************************"
 PRE="-----------------"
@@ -18,8 +18,14 @@ echo ''
 
 echo "${PRE} BUILD docker images"
 
+echo "${PRE} ... Airflow"
+sudo docker build -f Dockerfile-airflow -t ${DOCKER_AIRFLOW} .
+
+
 echo "${PRE} UP docker compose"
 sudo docker-compose up -d
+
+
 
 echo "${PRE} DONE"
 echo "${HR}"

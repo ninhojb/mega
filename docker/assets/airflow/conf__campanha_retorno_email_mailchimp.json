@@ -1,0 +1,19 @@
+{
+    "conf__campanha_retorno_email_mailchimp":
+        {
+            "steps":[
+                {"id":"email","active":1,"not_fail_upstream":1,
+                    "tasks":[
+                        {"id":"associar_ids__dw_mailchimp","type":"email_external_id", "active":1}
+                        ,{"id":"retorno_por_data_limite_apuracao","type":"campaign_report", "active":1,"parameters": {"metodo":"por_data_limite"}}
+                    ]
+                },
+                {"id":"engajamento","active":1,"not_fail_upstream":1,
+                    "tasks":[
+                        {"id":"mailchimp","type":"engagement", "active":1,"parameters": {"origem":"mailchimp"}}
+                        ,{"id":"portal_voz","type":"engagement", "active":1,"parameters": {"origem":"portal_voz", "qtd_dias_analise_portal": 7}}
+                    ]
+                }
+            ]
+        }
+}

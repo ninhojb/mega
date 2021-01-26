@@ -8,18 +8,25 @@ services:
         ports:
             - "5432:5432"
 
-    mongo:
-        image: mongo
-        env_file: .env
-        ports:
-            - "27017:27017"
-        volumes:
-            - ~/data/mega/mongodb:/data/db
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+            interval: 60s
+            timeout: 5s
+            retries: 3
 
-    mongo-express:
-        image: mongo-express
+    webserver:
+        image:  puckel/docker-airflow:1.10.9
+        restart: always
+        depends_on:
+            - postgres
         env_file: .env
+        volumes:
+            - ~/data/airflow:/data/airflow
         ports:
-            - "8081:8081"
-        links:
-            - mongo
+            - "28080:8080"
+        command: webserver
+        healthcheck:
+            test: [ "CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]" ]
+            interval: 30s
+            timeout: 30s
+            retries: 3

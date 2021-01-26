@@ -1,0 +1,11 @@
+{
+    "conf__simple_python_example":
+        {
+            "steps":[
+                {"id":"simple_python__no_params","type":"python", "active":1, "parallel":1, "parameters": {"module":"aldata.utils","package": "", "function": "get_now_utc"}},
+                {"id":"simple_python__args","type":"python", "active":1, "parallel":1, "parameters": {"module":"aldata.utils","package": "", "function": "do_md5", "parameters":{"args": ["raocosta@gmail.com"]}}},
+                {"id":"simple_python__kwargs","type":"python", "active":1, "parallel":1, "parameters": {"module":"aldata.utils","package": "", "function": "do_md5", "parameters":{"kwargs": {"txt": "raocosta@gmail.com"}}}},
+                {"id":"simple_python__args_kwargs","type":"python", "active":1, "parallel":1, "parameters": {"module":"aldata.utils","package": "", "function": "args_kwargs_test", "parameters":{"args": ["ARG1", "ARG2"], "kwargs": {"kwargs1": "VALOR1", "kwargs2": "VALOR2" }}}}
+            ]
+        }
+}
