@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-PROJETO="Publitas"
-
+PROJETO="Mega"
+DOCKER_AIRFLOW="mega"
 HR="***********************************************************************************"
 PRE="-----------------"
 
@@ -21,6 +21,10 @@ sudo docker-compose stop
 
 echo "${PRE} REMOVE docker containers"
 sudo docker-compose rm -f
+
+echo "${PRE} REMOVE docker images"
+sudo docker image rm ${DOCKER_AIRFLOW}
+
 
 echo "${PRE} DONE"
 echo "${HR}"
