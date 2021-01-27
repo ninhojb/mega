@@ -22,6 +22,8 @@ services:
         environment:
             - AIRFLOW__CORE__EXECUTOR=LocalExecutor
             - AIRFLOW__CORE__FERNET_KEY=yKjwPsHZqm_MS7Ylqpi3IpvATp-sny5By9c3x9lekQs=
+            - POSTGRES_PORT=5432
+            - POSTGRES_HOST=localhost
             - POSTGRES_USER=mega
             - POSTGRES_PASSWORD=Mega2021
             - POSTGRES_DB=mega
@@ -29,6 +31,7 @@ services:
             - AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=1
             - AIRFLOW__CORE__DAG_CONCURRENCY=8
             - AIRFLOW__CORE__PARALLELISM=8
+#            - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
 #        env_file: .env
         volumes:
             - ~/data/airflow:/data/airflow
