@@ -19,7 +19,7 @@ echo ''
 echo "${PRE} BUILD docker images"
 
 echo "${PRE} ... Airflow"
-sudo docker build -f Dockerfile-airflow -t  ${DOCKER_AIRFLOW} .
+sudo docker build -f docker-compose.yml
 
 
 echo "${PRE} UP docker compose"

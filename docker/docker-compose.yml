@@ -38,9 +38,10 @@ services:
     env_file:
       - .env
     volumes:
-      - ./dags:/opt/airflow/dags
-      - ./scripts:/opt/airflow/scripts
-      - ./airflow-logs:/opt/airflow/logs
+#      - ./dags:/opt/airflow/dags
+#      - ./scripts:/opt/airflow/scripts
+#      - ./airflow-logs:/opt/airflow/logs
+      - ./:/opt/airflow/
     ports:
       - "8080:8080"
     entrypoint: ./scripts/airflow-entrypoint.sh
