@@ -25,6 +25,10 @@ services:
             - POSTGRES_USER=mega
             - POSTGRES_PASSWORD=Mega2021
             - POSTGRES_DB=mega
+            - AIRFLOW__CORE__DAGS_FOLDER=/usr/local/airflow/dags
+            - AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=1
+            - AIRFLOW__CORE__DAG_CONCURRENCY=8
+            - AIRFLOW__CORE__PARALLELISM=8
 #        env_file: .env
         volumes:
             - ~/data/airflow:/data/airflow
