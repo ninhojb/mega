@@ -1,6 +1,12 @@
 import logging
 
+from database.unico import Airflow
+
+banco = Airflow()
+
 def gerar():
-    print("teste de dag")
-    logging.info("testando ")
+    logging.info('enviando a tabela mega')
+    tabela = 'mega'
+    banco.cria_tabela()
+    logging.info("fim ")
     return "deu certo"

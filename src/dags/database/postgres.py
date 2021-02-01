@@ -6,7 +6,7 @@ from contextlib import closing
 
 import pandas as pd
 
-from dags.database import Database
+from database import Database
 
 DEFAULT_CSV_COLS_DELIM = '\x01'
 

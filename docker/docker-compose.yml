@@ -2,8 +2,10 @@ version: "2.1"
 services:
   postgres:
     image: postgres:12
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
 
     ports:
       - "5433:5432"
@@ -16,6 +18,7 @@ services:
       - webserver
     env_file:
       - .env
+
     ports:
       - "8793:8793"
     volumes:

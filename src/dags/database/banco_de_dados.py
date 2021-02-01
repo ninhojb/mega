@@ -1,6 +1,6 @@
-from dags.database import Database
+from database import Database
 
-from dags.database.postgres import PostgresDB, POSTGRES_PSYCOPG2_URI, POSTGRES_PSYCOPG2_ALCHEMY_URI
+from database.postgres import PostgresDB, POSTGRES_PSYCOPG2_URI, POSTGRES_PSYCOPG2_ALCHEMY_URI
 
 
 class AbstractVozDatabase(Database):
