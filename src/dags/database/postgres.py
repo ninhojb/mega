@@ -2,27 +2,44 @@
 
 
 import logging
-from contextlib import closing
 
-import pandas as pd
+from sqlalchemy_utils.types.pg_composite import psycopg2
 
-from database import Database
-
-DEFAULT_CSV_COLS_DELIM = '\x01'
-
-POSTGRES_PSYCOPG2_ALCHEMY_URI = 'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'
-POSTGRES_PSYCOPG2_URI = "host='{host}' port='{port}' dbname='{database}' user='{user}' password='{password}'"
+from database.banco_de_dados import Banco
 
 
-class PostgresDB(Database):
+class Postgres:
 
-    def prepare_sql_statement(self, sql, **kwargs):
-        is_psycopg2_replace = kwargs.get('psycopg2_replace', True)
+    def __init__(self, cod_jogo='', pri_num='', seg_num='',
+                 ter_num='', qua_num='', qui_num='', sex_num='', dt_carga=''):
+        self.info = []
+        self.cod_jogo = cod_jogo
+        self.pri_num = pri_num
+        self.seg_num = seg_num
+        self.ter_num = ter_num
+        self.qua_num = qua_num
+        self.qui_num = qui_num
+        self.sex_num = sex_num
+        self.dt_carga = dt_carga
+        self.banco = Banco()
 
-        atencao = r"[prepare_sql_statement] ATENCAO: psycopg2 utiliza '%s' " \
-                  r"AO INVES do comum '?' para queries parametrizadas."
-        atencao = f"{atencao} Realizando replace '? -> %s', Ok?[{is_psycopg2_replace}]"
-        print(atencao)
+    def inserir_jogos(self):
+        logging.info('inserir dados na tabelas jogos')
 
-        sql = sql.replace('?', '%s') if is_psycopg2_replace else sql
-        return sql
+        try:
+            cursor = self.banco.conexao
+            cursor.execute(f'''
+                INSERT INTO mega.jogos(
+                    pri_num,
+                    seg_num,
+                    ter_num,
+                    qua_num,
+                    qui_num,
+                    sex_num,
+                    dt_carga
+                )
+                VALUES ({self.pri_num},{self.seg_num},{self.ter_num},{self.qua_num},{self.qui_num},{self.sex_num},'{self.dt_carga}')''')
+
+            return logging.info('Cadastro realizado com sucesso')
+        except (Exception, psycopg2.DatabaseError) as error:
+            return logging.info(error)

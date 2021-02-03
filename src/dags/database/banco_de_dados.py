@@ -1,56 +1,31 @@
-from database import Database
-
-from database.postgres import PostgresDB, POSTGRES_PSYCOPG2_URI, POSTGRES_PSYCOPG2_ALCHEMY_URI
+# Cria as tabelas
 
 
-class AbstractVozDatabase(Database):
+import logging
 
-    def connect_new(self, **kwargs):
-        raise NotImplemented
-
-    def sequence_nextval(self, sequence):
-        raise NotImplemented
-
-    def execute_fetchmany(self, sql, parameters=None, size=100, subset=True, **kwargs):
-        raise NotImplemented
-
-    def inserir_dataframe(self, dataframe, tabela, **kwargs):
-        # return self.persist_dataframe_2_db(dataframe, tabela, **kwargs)
-        pass
+from database import ConexaoPostgres
 
 
-class AbstractVozPostgres(Database, AbstractVozDatabase):
-    pass
+class Banco:
 
+    def __init__(self):
+        conn = ConexaoPostgres()
+        self.conexao = conn.conxexao_postgres()
+        self.cria_tabela_jogos()
 
-class Airflow(AbstractVozPostgres):
+    def cria_tabela_jogos(self):
+        tabela = 'jogos'
+        logging.info(f'Criando tabela {tabela}')
 
-    def __init__(self, config=None, **kwargs):
-        if not config:
-            config = kwargs.get(self.KWARG_DATABASE_CONFIG)
-            if not config:
-                config = {"host": 'localhost',
-                          "port": 5433,
-                          "database": 'airflow',
-                          "user": 'airflow',
-                          "password": 'airflow'}
+        self.conexao.execute('''
+                       CREATE TABLE if not exists mega.jogos(
+                       cod_jogo SERIAL NOT NULL PRIMARY KEY ,
+                       pri_num INT,
+                       seg_num INT,
+                       ter_num INT,
+                       qua_num INT,
+                       qui_num INT,
+                       sex_num INT,
+                       dt_carga DATE)''')
 
-        str_driver = POSTGRES_PSYCOPG2_URI.format(**config)
-        str_alchemy = POSTGRES_PSYCOPG2_ALCHEMY_URI.format(**config)
-        super().__init__('airflow', str_driver, str_alchemy, config)
-
-class Postgres(AbstractVozPostgres):
-
-    def __init__(self, config=None, **kwargs):
-        if not config:
-            config = kwargs.get(self.KWARG_DATABASE_CONFIG)
-            if not config:
-                config = {"host": 'localhost',
-                          "port": 5433,
-                          "database": 'mega',
-                          "user": 'mega',
-                          "password": 'Mega2021'}
-
-        str_driver = POSTGRES_PSYCOPG2_URI.format(**config)
-        str_alchemy = POSTGRES_PSYCOPG2_ALCHEMY_URI.format(**config)
-        super().__init__('airflow', str_driver, str_alchemy, config)
+        return f'tabela criado com sucesso {tabela}'
