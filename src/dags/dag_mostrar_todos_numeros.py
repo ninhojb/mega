@@ -3,11 +3,11 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
-from python import mega_mostrar_jogos as facade
+from python import mega_mostrar_todos_jogos as facade
 
-dag = DAG('__mostrar_numeros__criados',
-          default_args={'owner': 'teste'},
-          description='mostrar os numeros gerados',
+dag = DAG('3__mostrar_numeros__todos',
+          default_args={'owner': 'NEd'},
+          description='mostrar os todos numeros gerados',
           schedule_interval=None,  # '0 10 * * *',
           start_date=(datetime.combine(datetime.today() - timedelta(1), datetime.min.time())),
           max_active_runs=1,

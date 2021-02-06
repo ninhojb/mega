@@ -23,7 +23,7 @@ class Postgres:
             return logging.info(error)
 
     def executar_select(self, conexao, sql):
-        logging.info('[EXECUTAR_SELECT] Select todos os jogos')
+        logging.info('[EXECUTAR_SELECT] Select ')
         _conn = conexao
         try:
             resul = _conn.execute(sql)

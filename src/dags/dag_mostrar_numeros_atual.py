@@ -3,20 +3,20 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
-from python import mega_gerar_numeros as facade
+from python import mega_mostrar_jogos_atuais as facade
 
-dag = DAG('1__gerador_numeros__mega',
+dag = DAG('2__mostrar_numeros__atuais',
           default_args={'owner': 'Ned'},
-          description='gerador de numeros',
+          description='Mostra numeros do dia',
           schedule_interval=None,  # '0 10 * * *',
           start_date=(datetime.combine(datetime.today() - timedelta(1), datetime.min.time())),
           max_active_runs=1,
           catchup=False
           )
 
-op1 = PythonOperator(task_id="__Mega__gerar_num",
+op1 = PythonOperator(task_id="__Mega__mostrar_jogos_atuais",
                      provide_context=True,
-                     python_callable=facade.mega_gerar,
+                     python_callable=facade.mostrar_jogos_atuais,
                      dag=dag)
 
 op1

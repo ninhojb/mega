@@ -9,6 +9,7 @@ from database.postgres import Postgres
 def mostrar_jogos_gerados():
     db_mega = Banco()
     database = Postgres()
+    total = 0
     with closing(db_mega.conexao):
         bo = BusinessMostrarJogos(db_mega, database)
         sql = bo.gerar_sql()
@@ -16,8 +17,9 @@ def mostrar_jogos_gerados():
 
         for lista in executar_sql_sql:
             logging.info(lista)
+            total += 1
 
-    return '[MOSTRAR_JOGOS_GERADOS] Sucesso'
+    return f'[MOSTRAR_JOGOS_GERADOS] Sucesso {total}'
 
 
 class BusinessMostrarJogos(object):
