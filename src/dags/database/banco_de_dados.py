@@ -1,8 +1,6 @@
 # Cria as tabelas
 
 
-import logging
-
 from database import ConexaoPostgres
 
 
@@ -12,11 +10,9 @@ class Banco:
         conn = ConexaoPostgres()
         self.conexao = conn.conxexao_postgres()
         self.cria_tabela_jogos()
+        self.cria_tabela_resultado()
 
     def cria_tabela_jogos(self):
-        tabela = 'jogos'
-        logging.info(f'Criando tabela {tabela}')
-
         self.conexao.execute('''
                        CREATE TABLE if not exists mega.jogos(
                        cod_jogo SERIAL NOT NULL PRIMARY KEY ,
@@ -28,4 +24,20 @@ class Banco:
                        sex_num INT,
                        dt_carga DATE)''')
 
-        return f'tabela criado com sucesso {tabela}'
+        return f'tabela criado com sucesso '
+
+    def cria_tabela_resultado(self):
+        self.conexao.execute('''
+                       CREATE TABLE if not exists mega.resultados(
+                       cod_jogo SERIAL NOT NULL PRIMARY KEY ,
+                       num_concurso INT,
+                       primeiro INT,
+                       segundo INT,
+                       terceiro INT,
+                       quarto INT,
+                       quinto INT,
+                       sexto INT,
+                       data_solteio DATE,
+                       dt_carga DATE)''')
+
+        return f'tabela criado com sucesso '

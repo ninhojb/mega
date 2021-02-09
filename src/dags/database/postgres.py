@@ -12,7 +12,7 @@ class Postgres:
         pass
 
     def executar_insert(self, conexao, sql):
-        logging.info('[EXECUTAR_INSERT] inserir dados na tabelas jogos')
+        logging.info('[EXECUTAR_INSERT]')
         _conn = conexao
         try:
             resul = _conn.execute(sql)

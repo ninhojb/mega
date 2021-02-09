@@ -2,7 +2,7 @@
 
 from sqlalchemy import create_engine
 
-from database.variavle_airflow import AirflowVariable, Constantes
+from database.variaveis_airflow import AirflowVariable, Constantes
 
 
 class ConexaoPostgres:

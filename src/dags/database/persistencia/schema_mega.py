@@ -22,3 +22,23 @@ class Jogos(AlchemyEntity):
     @classmethod
     def full_table_name(cls):
         return f"{cls.__table_args__['schema']}.{cls.__tablename__}"
+
+class Resultado(AlchemyEntity):
+    __tablename__ = 'resultados'
+    __table_args__ = {"schema": "mega"}
+
+    cod_result = Column(Integer, primary_key=True, autoincrement=True)
+    num_concurso = Column(Integer)
+    primeiro = Column(Integer)
+    segundo = Column(Integer)
+    terceiro = Column(Integer)
+    quarto = Column(Integer)
+    quinto = Column(Integer)
+    sexto = Column(Integer)
+    data_solteio = Column(TIMESTAMP)
+    dt_carga = Column(TIMESTAMP, default=datetime.now)
+
+    @classmethod
+    def full_table_name(cls):
+        return f"{cls.__table_args__['schema']}.{cls.__tablename__}"
+
