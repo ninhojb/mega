@@ -1,5 +1,5 @@
 # Conexao com o Database
-
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 from database.variaveis_airflow import AirflowVariable, Constantes
@@ -23,3 +23,9 @@ class ConexaoPostgres:
         engine = create_engine(self.conn)
         _conn = engine.connect()
         return _conn
+
+    def conexao_session(self):
+        _engine = create_engine(self.conn)
+        Session = sessionmaker(bind=_engine)
+        _session = Session()
+        return _session

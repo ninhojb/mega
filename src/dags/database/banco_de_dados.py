@@ -9,6 +9,7 @@ class Banco:
     def __init__(self):
         conn = ConexaoPostgres()
         self.conexao = conn.conxexao_postgres()
+        self.session = conn.conexao_session()
         self.cria_tabela_jogos()
         self.cria_tabela_resultado()
 

@@ -5,7 +5,7 @@ from datetime import date
 from database.banco_de_dados import Banco
 from database.persistencia.schema_mega import Jogos
 from database.postgres import Postgres
-
+from database import ConexaoPostgres
 
 def mostrar_jogos_atuais():
     today = date.today()
@@ -17,17 +17,19 @@ def mostrar_jogos_atuais():
         bo = BusinessMostrarJogosAtuais(db_mega, database)
         criar_sql = bo.criar_sql(hoje)
         executar_sql = bo.executar_sql(criar_sql)
+        select_session = bo.select_session(hoje)
 
-        for lista in executar_sql:
-            logging.info(lista)
+        for lista in select_session:
+            logging.info(lista.dt_carga)
 
     return '[MOSTRAR_JOGOS_ATUAIS] Sucesso !!!'
 
 
 class BusinessMostrarJogosAtuais(object):
-    def __init__(self, db_mega, database: Postgres):
+    def __init__(self, db_mega,  database: Postgres):
         self.db_mega = db_mega.conexao
         self.database = database
+        self.session = db_mega.session
 
     def criar_sql(self, hoje):
         logging.info('[CRIAR_SQL] Gerando SQL')
@@ -36,8 +38,6 @@ class BusinessMostrarJogosAtuais(object):
                 FROM {Jogos.full_table_name()}
                 WHERE dt_carga = '{hoje}'
                 """
-
-        logging.info(_sql)
         return _sql
 
     def executar_sql(self, criar_sql):
@@ -45,3 +45,10 @@ class BusinessMostrarJogosAtuais(object):
         resul = self.database.executar_select(self.db_mega, criar_sql)
 
         return resul
+
+    def select_session(self, hoje):
+        logging.info(['SELECT_SESSION('])
+        result = self.session.query(Jogos)\
+            .filter(Jogos.dt_carga == hoje)
+
+        return result
