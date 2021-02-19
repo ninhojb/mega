@@ -7,6 +7,7 @@ from database.persistencia.schema_mega import Jogos
 from database.postgres import Postgres
 from database import ConexaoPostgres
 
+
 def mostrar_jogos_atuais():
     today = date.today()
     hoje = today.strftime('%Y-%m-%d')
@@ -20,13 +21,14 @@ def mostrar_jogos_atuais():
         select_session = bo.select_session(hoje)
 
         for lista in select_session:
-            logging.info(lista.dt_carga)
+            logging.info(f'{lista.dt_carga}, {lista.pri_num}, {lista.seg_num}, {lista.ter_num}, '
+                         f'{lista.qua_num}, {lista.qui_num}, {lista.sex_num}')
 
     return '[MOSTRAR_JOGOS_ATUAIS] Sucesso !!!'
 
 
 class BusinessMostrarJogosAtuais(object):
-    def __init__(self, db_mega,  database: Postgres):
+    def __init__(self, db_mega, database: Postgres):
         self.db_mega = db_mega.conexao
         self.database = database
         self.session = db_mega.session
@@ -48,7 +50,7 @@ class BusinessMostrarJogosAtuais(object):
 
     def select_session(self, hoje):
         logging.info(['SELECT_SESSION('])
-        result = self.session.query(Jogos)\
+        result = self.session.query(Jogos) \
             .filter(Jogos.dt_carga == hoje)
 
         return result
