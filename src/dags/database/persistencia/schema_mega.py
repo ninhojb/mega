@@ -60,3 +60,21 @@ class MasSorteados(AlchemyEntity):
     @classmethod
     def full_table_name(cls):
         return f"{cls.__table_args__['schema']}.{cls.__tablename__}"
+
+
+class MaisJogados(AlchemyEntity):
+    __tablename__ = 'mais_jogados'
+    __table_args__ = {"schema": "mega"}
+
+    cod_jog = Column(Integer, primary_key=True, autoincrement=True)
+    primeiro = Column(Integer)
+    segundo = Column(Integer)
+    terceiro = Column(Integer)
+    quarto = Column(Integer)
+    quinto = Column(Integer)
+    sexto = Column(Integer)
+    dt_carga = Column(TIMESTAMP, default=datetime.now)
+
+    @classmethod
+    def full_table_name(cls):
+        return f"{cls.__table_args__['schema']}.{cls.__tablename__}"

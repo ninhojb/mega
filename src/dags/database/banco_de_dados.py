@@ -13,6 +13,7 @@ class Banco:
         self.cria_tabela_jogos()
         self.cria_tabela_resultado()
         self.cria_tabela_mas_sorteados()
+        self.cria_tabela_mais_jogados()
 
     def cria_tabela_jogos(self):
         self.conexao.execute('''
@@ -48,6 +49,18 @@ class Banco:
         self.conexao.execute('''
                        CREATE TABLE if not exists mega.mas_sorteados(
                        cod_sort SERIAL NOT NULL PRIMARY KEY ,
+                       primeiro INT,
+                       segundo INT,
+                       terceiro INT,
+                       quarto INT,
+                       quinto INT,
+                       sexto INT,
+                       dt_carga DATE)''')
+
+    def cria_tabela_mais_jogados(self):
+        self.conexao.execute('''
+                       CREATE TABLE if not exists mega.mais_jogados(
+                       cod_jog SERIAL NOT NULL PRIMARY KEY ,
                        primeiro INT,
                        segundo INT,
                        terceiro INT,
