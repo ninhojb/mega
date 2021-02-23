@@ -23,6 +23,7 @@ class Jogos(AlchemyEntity):
     def full_table_name(cls):
         return f"{cls.__table_args__['schema']}.{cls.__tablename__}"
 
+
 class Resultado(AlchemyEntity):
     __tablename__ = 'resultados'
     __table_args__ = {"schema": "mega"}
@@ -42,3 +43,20 @@ class Resultado(AlchemyEntity):
     def full_table_name(cls):
         return f"{cls.__table_args__['schema']}.{cls.__tablename__}"
 
+
+class MasSorteados(AlchemyEntity):
+    __tablename__ = 'mas_sorteados'
+    __table_args__ = {"schema": "mega"}
+
+    cod_sort = Column(Integer, primary_key=True, autoincrement=True)
+    primeiro = Column(Integer)
+    segundo = Column(Integer)
+    terceiro = Column(Integer)
+    quarto = Column(Integer)
+    quinto = Column(Integer)
+    sexto = Column(Integer)
+    dt_carga = Column(TIMESTAMP, default=datetime.now)
+
+    @classmethod
+    def full_table_name(cls):
+        return f"{cls.__table_args__['schema']}.{cls.__tablename__}"
