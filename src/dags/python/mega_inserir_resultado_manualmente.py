@@ -29,9 +29,9 @@ class BusinessInserir(object):
         self.database = database
 
     def inserir_dados(self, hoje):
-        num_concurso, primeiro, segundo, terceiro, quarto, quinto, sexto, data_sorteio = ['2347', '08', '09', '17',
-                                                                                          '30', '58', '60',
-                                                                                          '2021-02-20']
+        num_concurso, primeiro, segundo, terceiro, quarto, quinto, sexto, data_sorteio = ['2349', '05', '10', '25',
+                                                                                          '32', '49', '54',
+                                                                                          '2021-03-03']
 
         sql = f'''
             INSERT INTO {Resultado.full_table_name()}
