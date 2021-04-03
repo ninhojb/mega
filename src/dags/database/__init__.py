@@ -15,10 +15,11 @@ class ConexaoPostgres:
                   "user": Constantes.get_from_airflow(AirflowVariable.POSTGRES_USER),
                   "password": Constantes.get_from_airflow(AirflowVariable.POSTGRES_PASSWD)}
 
+
         str_alchemy = POSTGRES_PSYCOPG2_ALCHEMY_URI.format(**config)
 
         self.conn = str_alchemy
-
+        print(self.conn)
     def conxexao_postgres(self):
         engine = create_engine(self.conn)
         _conn = engine.connect()
